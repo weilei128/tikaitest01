@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-entity/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-exception/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-service-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-utils/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-library/fastdfs-client/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-services/szgt-legalAffairs/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-services/szgt-system/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-web/src/main/java" charset="UTF-8" />
+  </component>
+</project>

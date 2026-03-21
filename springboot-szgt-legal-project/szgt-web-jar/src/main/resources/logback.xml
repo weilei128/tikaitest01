@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--scanPeriod="30 seconds" debug="false"-->
+<configuration scan="true" >
+    <!--引用系统的配置文件输出到控制台-->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <contextName>spring-boot-logging</contextName>
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 级别过滤 -->
+        <!-- <filter class="ch.qos.logback.classic.filter.LevelFilter">
+             <level>INFO</level>
+             <onMatch>ACCEPT</onMatch>
+             <onMismatch>DENY</onMismatch>
+         </filter>-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg %n</pattern>
+            <!--<pattern> %d %-4relative [%thread] %-5level %logger{36} [T:%X{trans}]  - %msg%n</pattern>-->
+        </encoder>
+    </appender>
+
+    <!--输出到文件-->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<file>logs/spring-boot-logging.log</file>-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--<fileNamePattern>${log.path}/spring-boot-logging.%d{yyyy-MM-dd}.log.zip</fileNamePattern>-->
+            <fileNamePattern>${user.dir}/szgt.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志保存周期 -->
+            <maxHistory>30</maxHistory>
+            <!-- 总大小 -->
+            <!--<totalSizeCap>1GB</totalSizeCap>-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level
+                %logger{50} - %msg %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <!--<appender-ref ref="console" />-->
+        <appender-ref ref="file"/>
+    </root>
+
+    <!-- logback为java中的包 -->
+    <!-- <logger name="com.pcitc.federation"/>-->
+
+</configuration>

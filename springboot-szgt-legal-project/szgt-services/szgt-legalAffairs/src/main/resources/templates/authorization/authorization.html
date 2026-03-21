@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+    	function Save() {
+    		document.getElementById("pageoffice1").SaveAsReadOnly = true;
+    		document.getElementById("pageoffice1").Document.Application.Dialogs(84).Show();
+    	}
+    	function PrintOut() {
+    		document.getElementById("pageoffice1").Document.Application.Dialogs(88).Show();
+    	}
+    </script>
+</head>
+<body>
+    <div style="width: auto; height: 98vh; margin: 0 auto;" th:utext="${pageoffice}"></div>
+</body>
+</html>

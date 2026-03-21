@@ -1,0 +1,42 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url:  jdbc:mysql://10.100.12.150:3306/szgt_fawu_fawudb?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai    #mysql8
+    username: root
+    password: szgt@2020!
+    name: test
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  redis:
+    database: 0
+    # Redis服务器地址
+    host: 10.100.12.150
+    # Redis服务器连接端口
+    port: 6379
+    # Redis服务器连接密码（默认为空）
+    password: szgt#2020
+    # 连接池最大连接数（使用负值表示没有限制）
+    jedis:
+      pool:
+        max-active: 200
+    # 连接池最大阻塞等待时间（使用负值表示没有限制）
+#        max-wait: -1
+    # 连接池中的最大空闲连接
+        max-idle: 10
+    # 连接池中的最小空闲连接
+        min-idle: 0
+server:
+  port: 8234
+#  servlet:
+#    context-path: /federationWeb
+fastdfs:
+  tracker-servers: 10.100.12.150:22122
+  network-timeout-in-seconds: 30
+  connect-timeout-in-seconds: 20
+dps: 
+  url: http://10.100.12.222:23000/szgt-system
+filestorage:
+  url: http://10.100.12.222:23000/fdfs/
+law: 
+  url: http://10.100.12.222:23000/szgt-law/
+  

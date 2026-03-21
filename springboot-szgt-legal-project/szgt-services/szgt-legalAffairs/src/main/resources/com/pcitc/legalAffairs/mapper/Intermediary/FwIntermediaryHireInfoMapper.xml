@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcitc.legalAffairs.mapper.Intermediary.FwIntermediaryHireInfoMapper">
+    <resultMap id="directToVo" type="com.pcitc.legalAffairs.vo.Intermediary.IntermediaryHireVo">
+    	<result column="f_ID" jdbcType="BIGINT" property="hireId"/>
+    	<result column="f_Name" jdbcType="VARCHAR" property="hireName"/>
+    	<result column="intermediary_ID" jdbcType="BIGINT" property="intermediaryId"/>
+    	<result column="intermediary_Name" jdbcType="VARCHAR" property="intermediaryName"/>
+    	<result column="lawyer_Name" jdbcType="VARCHAR" property="lawyerName"/>
+    	<result column="hire_Type" jdbcType="INTEGER" property="hireType"/>
+    	<result column="hire_Way" jdbcType="VARCHAR" property="hireWay"/>
+    	<result column="service_Cost" jdbcType="VARCHAR" property="serviceCost"/>
+    	<result column="org_Name" jdbcType="VARCHAR" property="orgName"/>
+    	<result column="person_Name" jdbcType="VARCHAR" property="personName"/>
+    	<result column="date" jdbcType="DATETIMEOFFSET" property="date"/>
+	</resultMap>
+	
+	<sql id="Select_Column">
+		h.f_ID AS f_ID,
+		IF(h.f_Hire_Type = 0, h.f_Hire_State, h.f_Spe_Business_Name) AS f_Name,
+		i.f_ID AS intermediary_ID,
+		i.f_Org_Name AS intermediary_Name,
+		l.f_Lawyer_Name AS lawyer_Name,
+		h.f_Hire_Type AS hire_Type,
+		h.f_Hire_Way_Name AS hire_Way,
+		h.f_Pre_Service_Cost AS service_Cost,
+		h.f_Main_Depart AS org_Name,
+		h.f_Handler AS person_Name,
+		h.f_CreateTime AS date
+	</sql>
+	<select 
+	    id="queryHireInfo"
+        parameterType="com.pcitc.legalAffairs.bo.Intermediary.HireInfoQuery"
+        resultMap="directToVo"
+    >
+    	SELECT
+    		<include refid="Select_Column"/>
+    	FROM fw_intermediary_hire_info AS h
+    	JOIN fw_intermediary_org_basic AS i ON
+    		i.f_ID IN (SELECT fk_Intermediary_ID FROM fw_intermediary_info_hire_r WHERE fk_Hire_ID = h.f_ID AND f_IsDel = 0)
+    	LEFT JOIN fw_intermediary_hire_legal_team AS l ON
+    		l.fk_Org_Basic_Id = i.f_ID 
+    		AND l.fk_Hire_ID = h.f_ID
+    		AND l.f_Type = 0
+    		AND l.f_IsDel = 0
+    	WHERE h.f_IsDel = 0 AND i.f_IsDel = 0
+    	<if test="bo.hireName != null">
+            <bind name="hireName" value="'%' + bo.hireName + '%'"/>
+            <if test="bo.hireType != null and bo.hireType == 0">
+            	AND h.f_Hire_State LIKE #{hireName }
+            </if>
+            <if test="bo.hireType != null and bo.hireType == 1">
+            	AND h.f_Spe_Business_Name LIKE #{hireName }
+            </if>
+            <if test="bo.hireType == null">
+            	AND (h.f_Spe_Business_Name LIKE #{hireName } OR h.f_Hire_State LIKE #{hireName })
+            </if>
+        </if>
+    	<if test="bo.intermediaryName != null">
+            <bind name="intermediaryName" value="'%' + bo.intermediaryName + '%'"/>
+            AND i.f_Org_Name LIKE #{intermediaryName }
+        </if>
+    	<if test="bo.hireType != null">
+            AND h.f_Hire_Type = #{bo.hireType }
+        </if>
+    	<if test="bo.hireWay != null">
+            AND h.f_Hire_Way_Code = #{bo.hireWay }
+        </if>
+    	<if test="bo.lawyerName != null">
+    	    <bind name="lawyerName" value="'%' + bo.lawyerName + '%'"/>
+            AND l.f_Lawyer_Name like #{lawyerName }
+        </if>
+    	
+    </select>
+	
+</mapper>

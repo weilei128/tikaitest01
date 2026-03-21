@@ -1,0 +1,12 @@
+/.metadata/
+springboot-szgt-legal-project/**/.settings
+springboot-szgt-legal-project/**/target
+*.classpath
+*.project
+springboot-szgt-legal-project/.idea
+.settings
+.factorypath
+szgt.*.log
+.vscode/launch.json
+springboot-szgt-legal-project/.metadata
+*.iml
