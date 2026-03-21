@@ -1,0 +1,75 @@
+server:
+  port: 8238
+  servlet:
+    context-path: /contract
+
+spring:
+  application:
+    name: szgt-contract
+  profiles:
+    #active: pro
+    active: dev
+    #active: test
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 1000MB
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+
+  datasource:
+    name: cmis_saas
+    url: jdbc:mysql://${database-address}:3306/cmis_sass?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: ${database-username}
+    password: ${database-password}
+    type: com.alibaba.druid.pool.DruidDataSource
+
+  redis:
+    database: 0
+    host: ${redis-address}
+    port: 6379
+    timeout: 2000
+    password: ${redis-password}
+    lettuce:
+      pool:
+        max-active: 16
+        max-wait: 1000ms
+        min-idle: 0
+        max-idle: 8
+      shutdown-timeout: 100ms
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    timezone: GMT+8
+    serialization:
+      write-dates-as-timestamps: false
+
+Page:
+  PageSize: 10
+  PageNum: 0
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/**/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+  #configuration:
+    #log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+swagger:
+  enable: true
+
+DPS:
+  AppId: 111
+
+# pageoffice 授权文件路径
+#posyspath: D:\project\szgt\szgt-hetong\src\main\resources\lic
+#posyspath: /Volumes/Code/YK/szgt-contract/src/main/resources/lic
+posyspath: /home/iaas/szgt-test/service/contract/pageoffice/lic/
+
+logging:
+  level:
+    org:
+      apache:
+        tomcat: INFO
+        catalina: INFO

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script language="javascript">
+    if (!!window.ActiveXObject || "ActiveXObject" in window){
+        document.write('<object classid="clsid:FF09E4FA-BFAA-486E-ACB4-86EB0AE875D5" codebase="WebOffice.ocx#Version=2019,1,7,3" id="WebOffice" width="900" height="500" >');
+        document.write('</object>');}
+    else
+    {
+        document.write('<object id="WebOffice" CLSID="{FF09E4FA-BFAA-486E-ACB4-86EB0AE875D5}" TYPE="application/x-itst-activex"  width=100% height=900></object>');
+    }
+</script>
+</body>
+</html>

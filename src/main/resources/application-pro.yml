@@ -1,0 +1,42 @@
+database-address: 10.100.8.10
+database-username: root
+database-password: Szgt@2020#241!
+redis-address: 10.100.8.17
+redis-password: Szgt#2020&
+
+share:
+  host: 10.100.12.55
+  port: 23000
+  context: /szgt-system
+
+filestorage:
+  ip: 10.100.12.55
+  host: iop.gig.cn
+  port: 23000
+  context: /fdfs
+
+fdfs:
+  so-timeout: 1000
+  connect-timeout: 500
+  tracker-list:
+    - 10.100.8.15:22122
+
+wfssourl: http://iop.gig.cn:28245/dps/sso
+
+pageoffice:
+  context: /szgt-contract/contract
+  opencontext: /szgt-contract/contract
+
+maindata:
+  url: http://10.100.4.55:8181/dmodel/webservices/CxWsService?wsdl
+  modelId: T_2082
+  sysCode: INSYS_OUTUNIT
+  inModelId: T_1944
+  inSysCode: INSYS_INUNIT
+
+secretKey: 8c9e1fc59e3a11ea93dafa163e120be4
+
+financial:
+  sysCode: ContractSys
+  key: GXTZFSSC
+  url: http://10.100.1.5/cwbase/JTGL/PubWebService.asmx?wsdl

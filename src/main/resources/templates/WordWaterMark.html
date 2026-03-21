@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title></title>
+        <style>
+            html, body
+            {
+                height: 100%;
+            }
+            .main
+            {
+                height: 100%;
+            }
+        </style>
+
+        <script th:inline="javascript">
+          	function Save() {
+              	document.getElementById("PageOfficeCtrl1").WebSave();
+        	}
+
+        	//另存为
+        	function SaveAs() {
+                Save();
+                document.getElementById("PageOfficeCtrl1").ShowDialog(3);
+            }
+
+            //打印设置
+            function PrintSet() {
+                document.getElementById("PageOfficeCtrl1").ShowDialog(5);
+            }
+
+            //打印
+            function PrintFile() {
+                Save();
+                document.getElementById("PageOfficeCtrl1").ShowDialog(4);
+            }
+
+            function CloseWin(){
+                var fileurl = document.getElementById("PageOfficeCtrl1").CustomSaveResult;
+                // window.external.CallParentFunc("getPBReturnVal('" + fileurl + "');");
+                window.external.close();
+            }
+
+            function AfterDocumentOpened() {
+                // document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(4, false); //禁止另存
+                // document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(5, false); //禁止打印
+                document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(6, false); //禁止页面设置
+                // document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(8, false); //禁止打印预览
+                /**
+                 *document.getElementById("PageOfficeCtrl1").SetWordWaterMarkImage( ImageURL, ImageWidth, IsWashout );
+                 *ImageURL  字符串类型，必选参数，图片的路径。
+                 *ImageWidth  整数类型，必选参数，图片的宽度（单位：厘米）。如果是0表示采用图片默认宽度。
+                 *IsWashout  布尔类型，必选参数，是否冲蚀。true：冲蚀，false：不冲蚀
+                 */
+                // document.getElementById("PageOfficeCtrl1").SetWordWaterMarkImage("http://10.238.222.210:8081/group1/M00/00/00/Cu7e0l6ENuiAeAisAAD3N4Cwi8A797.png",10,false);
+                document.getElementById("PageOfficeCtrl1").SetWordWaterMarkImage([[${imgurl}]],0,false);
+            }
+
+            function PrintPreview() {
+                // Save();
+                document.getElementById("PageOfficeCtrl1").PrintPreview();
+            }
+
+  		</script>
+
+    </head>
+    <body>
+        <div style="width:auto; height:100%" th:utext="${pageoffice}"></div>
+    </body>
+</html>

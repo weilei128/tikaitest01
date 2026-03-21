@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>WebOffice 在线编辑WORD ,EXCEL等文档处理演示</title>
+    <style rel="stylesheet" type="text/css">
+        body{font-size:15px;}
+        table{font-size:15px;}
+    </style>
+</head>
+<script language="javascript" type ="text/javascript" >
+    var strRoot;
+    var varpath = decodeURI(window.location.pathname);
+    var varhost=window.location.host;
+    if (varhost=='')
+    {
+        //本机地址
+        strRoot = varpath.substring(1,varpath.lastIndexOf('/')+1);//取得打开、保存路径
+        if (strRoot =='')strRoot = varpath.substring(1,varpath.lastIndexOf('\\')+1);
+
+    }else
+    {
+        //网络地址
+        varpro=window.location.protocol;
+        strRoot= varpro + "//" + varhost + "/" + varpath.substring(1,varpath.lastIndexOf('/')+1);
+        if (strRoot =='')strRoot = varpath.substring(1,varpath.lastIndexOf('\\')+1);
+
+    }
+
+
+//http://10.238.222.210:8081/group1/M00/00/04/Cu7e0l6oKw-AV1HrAARi9Eui0X849.docx
+    function OpenDoc(flag)
+    {
+        var strPath='watermark.html';
+        ShowPage(strRoot,strPath);
+    }
+    function ShowPage(root,path)
+    {
+        var pre = "WebOffice://|Officectrl|";//智能窗打开的固定参数
+        var v=getBrowser();
+        if(v==1){//当浏览器返回值为1时定义为使用智能窗方式打开网址
+            strUrl = pre + root + path;
+            window.open(strUrl,'_self');
+        }
+        else
+        { //当浏览器返回值1以外的数据时采用传统方式打开网址
+            strUrl = root + path;
+            window.open(strUrl,'_blank');
+        }
+    }
+    function getBrowser(){
+        var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var s;
+        var ver;
+        (s = ua.match(/edge\/([\d.]+)/)) ? Sys.edge = s[1] :
+            (s = ua.match(/rv:([\d.]+)\) like gecko/)) ? Sys.ie = s[1] :
+                (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+                    (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+                        (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+                            (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+                                (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+        if (Sys.edge) return 1;
+        if (Sys.ie) return 0;
+        if (Sys.firefox) return 1;
+        if (Sys.chrome){ ver = Sys.chrome;ver.toLowerCase();var arr = ver.split('.');if(parseInt(arr[0])>43){return 1;}else{return 0;}}
+        if (Sys.opera) return 1;
+        if (Sys.safari) return 1;
+        return 1;
+    }</script>
+<body>
+<a href="javascript:OpenDoc(1);">编辑</a>
+</body>
+</html>

@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-library/fastdfs-client/fastdfs-client.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-library/fastdfs-client/fastdfs-client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/szgt-code-law-gt.iml" filepath="$PROJECT_DIR$/.idea/szgt-code-law-gt.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-common.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-entity/szgt-entity.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-entity/szgt-entity.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-exception/szgt-exception.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-exception/szgt-exception.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-services/szgt-legalAffairs/szgt-legalAffairs.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-services/szgt-legalAffairs/szgt-legalAffairs.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-library/szgt-library.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-library/szgt-library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-parent.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-parent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-service-common/szgt-service-common.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-service-common/szgt-service-common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-services/szgt-services.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-services/szgt-services.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-services/szgt-system/szgt-system.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-services/szgt-system/szgt-system.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-user/szgt-user.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-user/szgt-user.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-utils/szgt-utils.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-common/szgt-utils/szgt-utils.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-web/szgt-web.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-web/szgt-web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/springboot-szgt-legal-project/szgt-web-jar/szgt-web-jar.iml" filepath="$PROJECT_DIR$/springboot-szgt-legal-project/szgt-web-jar/szgt-web-jar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/szgt-contract.iml" filepath="$PROJECT_DIR$/szgt-contract.iml" />
     </modules>
   </component>
 </project>

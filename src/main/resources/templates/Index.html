@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+    <head>
+        <title>Index</title>
+        <script type="text/javascript" src="jquery.min.js"></script>
+     	<script type="text/javascript" src="pageoffice.js" id="po_js_main"></script>
+
+    </head>
+    <body>
+        <h1 th:inline="text">PageOffice 集成效果演示</h1>
+        
+        <a href="javascript:POBrowser.openWindowModeless(
+        '/filenormal?Remark=编辑保存&AttachmentName=附件111&extension=docx&PropertyID=111&AttachmentTypeName=1112&AttachmentType=1&TypeCode=111&AttachmentPath=/group1/M00/00/00/Cu7e0l6Bp8CAE3btAAEg7sXBa0g30.docx&PropertyModel=222&Section=222&DocUrl=http://10.238.222.210:8081&accesstoken=Bearer a61700cb-704b-4c5d-a518-c3640feb1621','width=1200px;height=800px;');">打开文件 </a>
+        <br/>
+        <a href="javascript:POBrowser.openWindowModeless('/wordcompare?fileurl1=http://10.238.222.210:8081/group1/M00/00/00/Cu7e0l6Bp8CAE3btAAEg7sXBa0g30.docx&fileurl2=http://10.238.222.210:8081/group1/M00/00/00/Cu7e0l6C_myAbnkoAAEitBbzFWY20.docx' , 'width=1200px;height=800px;');">演示比较两个版本的Word文档的功能 </a>
+        <br>
+        <a href="javascript:POBrowser.openWindowModeless('/wordrevision?fileurl=http://10.238.222.210:8081/group1/M00/00/00/Cu7e0l6C_myAbnkoAAEitBbzFWY20.docx', 'width=1300px;height=800px;');">Word中显示痕迹列表效果</a>
+        <br>
+        <a href="javascript:POBrowser.openWindowModeless('/filereadonly?fileurl=http://10.238.222.210:8081/group1/M00/00/00/Cu7e0l6C_myAbnkoAAEitBbzFWY20.docx', 'width=1000px;height=800px;');">只读查看</a>
+        <br>
+        <a href="javascript:POBrowser.openWindowModeless('/pdfopen?fileurl=http://10.238.222.210:8081/group1/M00/00/00/Cu7e0l6DDOGASoJZAAelB41QMd8584.pdf', 'width=1000px;height=800px;');">打开pdf</a>
+        <br>
+        <a href="javascript:POBrowser.openWindowModeless(
+        '/dataregionfill?Remark=模板填充&AttachmentName=责任状：互联网事业部&extension=docx&PropertyID=111&AttachmentTypeName=1112&AttachmentType=1&TypeCode=111&AttachmentPath=/group1/M00/00/00/Cu7e0l6EA3CAJV4uAABEJbQPxBs52.docx&PropertyModel=222&Section=222&DocUrl=http://10.238.222.210:8081&accesstoken=Bearer 2e68980f-3549-48aa-8433-b3baa26f7f7c','width=1200px;height=800px;');">模板填充 </a>
+        <br>
+        <a href="javascript:POBrowser.openWindowModeless(
+        '/wordcomment?Remark=word批注&AttachmentName=ppp&extension=docx&PropertyID=111&AttachmentTypeName=1112&AttachmentType=1&TypeCode=111&AttachmentPath=/group1/M00/00/00/Cu7e0l6EMZWAVf6tAAElOkdqV6c31.docx&PropertyModel=222&Section=222&DocUrl=http://10.238.222.210:8081&accesstoken=Bearer 2e68980f-3549-48aa-8433-b3baa26f7f7c','width=1300px;height=800px;');">word批注 </a>
+        <br>
+        <a href="javascript:POBrowser.openWindowModeless(
+        '/wordwatermark?Remark=添加水印AttachmentName=ppp&extension=docx&PropertyID=111&AttachmentTypeName=1112&AttachmentType=1&TypeCode=111&AttachmentPath=/group1/M00/00/00/Cu7e0l6Bp8CAE3btAAEg7sXBa0g30.docx&PropertyModel=222&Section=222&DocUrl=http://10.238.222.210:8081&accesstoken=Bearer 1fac6f13-5e84-44dd-8519-bd48720c5735','width=1200px;height=800px;');">图片水印 </a>
+    </body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $.format = function (source, params) {
+            if (arguments.length == 1)
+                return function () {
+                    var args = $.makeArray(arguments);
+                    args.unshift(source);
+                    return $.format.apply(this, args);
+                };
+            if (arguments.length > 2 && params.constructor != Array) {
+                params = $.makeArray(arguments).slice(1);
+            }
+            if (params.constructor != Array) {
+                params = [params];
+            }
+            $.each(params, function (i, n) {
+                source = source.replace(new RegExp("\\{" + i + "\\}", "g"), n);
+            });
+            return source;
+        };
+
+        function setPostFormNewWindowParam(options){
+            var action = options.action;
+            var target = options.target;
+
+            var targetForm = $('#dpsWfPostFormNewWindow');
+            if(targetForm.length > 0){
+                targetForm.empty();
+
+                var paramJsonAry = options.data;
+                targetForm.attr('action', action).attr('target', target)
+                    .attr('onsubmit', $.format("postFormNewWindow('{0}')", target));
+
+                if(paramJsonAry){
+                    for(var objKey in paramJsonAry){
+                        var domHtml = $.format(
+                            '<input type="hidden" id="{0}" name="{1}" value="{2}" />',
+                            "dpsWf_" + objKey.toString(), objKey.toString(), paramJsonAry[objKey]);
+                        alert(domHtml);
+                        $(domHtml).appendTo(targetForm);
+                    }
+                }
+
+                targetForm.submit();
+            }
+        }
+
+        function postFormNewWindow(windowName){
+            window.open('about:blank',windowName);
+        }
+
+        function ssoError(e){
+            alert("单点登录到流程服务失败." + e);
+        }
+
+        var intDpsPage = {
+            sso : function(onComplete, onFailure, options){
+
+                var access_token = document.getElementById("access_token").value;
+
+                $.ajax({
+                    type : "GET",  //提交方式
+                    url : "common/dpsSSO?access_token=" + access_token,//路径
+                    dataType: "json",
+                    success : function(data) {//返回数据根据结果进行相应的处理
+                        if(onComplete) onComplete(data, options);
+                    }
+                });
+            }
+        };
+
+        // 流程查看
+        var intDspServiceSite = {
+            ssoFlowView : function(data, options){
+                var tmpResult = data.success;
+                if(tmpResult){
+                    var ssoUrl = data.data.url;
+                    var token = data.data.token;
+                    var url = ssoUrl;
+
+                    var optionStr =  {
+                        action:url,
+                        target:'viewInstance',
+                        data:{
+                            businessId: options.businessId,
+                            appId: options.appId,
+                            token: token,
+                            targeturl:'/graphic/view'
+                        }
+                    };
+                    setPostFormNewWindowParam(optionStr) ;
+                }
+            }
+        };
+
+        function graphic_view(){
+            intDpsPage.sso(intDspServiceSite.ssoFlowView, ssoError,
+                // {appId: "111", taskId: "CB89110E62D542258C25065A0E937F7D"});
+                {appId: "111", businessId: "f298636b74394271b325e7e9db607efb"});
+
+        }
+
+    </script>
+</head>
+<body>
+    <form id="dpsWfPostFormNewWindow" name="dpsWfPostFormNewWindow"
+          action="#" target="postFormNewWindow" method="post">
+    </form>
+
+    <input type="button" value="流程查看" onclick="graphic_view()">
+    <br>
+    token: <input type="text" placeholder="输入token" id="access_token">
+
+</body>
+</html>

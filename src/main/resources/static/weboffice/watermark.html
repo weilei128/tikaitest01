@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <title>WebOffice控件打开一个WORD文件</title>
+    <script language=javascript>
+
+        var strOpenUrl = "http://10.238.222.210:8081/group1/M00/00/04/Cu7e0l6oKw-AV1HrAARi9Eui0X849.docx";
+        var strSaveUrl = "http://192.168.1.5:8238/contract/attachment/uploadreturndetail";
+        strSmartUrl = "WebOffice://|Officectrl|" + window.location.href;//开启智能窗模式
+        function WebOpen()
+        {
+            obj = document.getElementById('WebOffice');//获得控件对象
+            if (obj)setTimeout('openfile()',100);//等待控件初始化完毕，时间可以根据网络速度设定。
+        }
+        function openfile()
+        {
+            document.getElementById('WebOffice').Open(strOpenUrl,true,"Word.Document","","");
+        }
+
+        function SmartOpen()
+        {
+            location.href=strSmartUrl;
+        }
+        function WebJspSave()
+        {
+            Save();
+        }
+
+        function Save()
+        {
+
+            try{
+
+                document.getElementById('WebOffice').HttpInit();
+                document.getElementById('WebOffice').HttpAddPostString("PropertyID","webofficetest");
+                document.getElementById('WebOffice').HttpAddPostString("access_token", "97930e1e-1b34-4190-8b1d-084ef778f3f7");
+                // document.getElementById('WebOffice').HttpAddPostString("User","张三");
+                //将控件里打开的WORD文档以A.DOC名称上传,docfile为固定的参数
+                document.getElementById('WebOffice').HttpAddPostCurrFile("file", "wo1.doc");
+                //上面语句为准备上传的数据，接下来执行模拟表单上传动作
+                var strResults = document.getElementById('WebOffice').HttpPost(strSaveUrl);
+                alert(strResults);
+                document.getElementById('WebOffice').Close();
+                setTimeout('location.reload();',3000);
+            }
+            catch(e)
+            {
+                alert('发生错误！请使用查阅返回值！');
+            }
+
+        }
+
+        function WebPicMark()
+        {
+            WebOffice.ActiveDocument.ActiveWindow.ActivePane.View.SeekView=9;
+            WebOffice.ActiveDocument.Application.Selection.HeaderFooter.Shapes.AddPicture("http://10.238.222.210:8081/group1/M00/00/03/Cu7e0l6lf62AfrkiAAD3N4Cwi8A377.png", false, true).Select();
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.PictureFormat.Brightness = 0.85;
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.PictureFormat.Contrast = 0.15;
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.LockAspectRatio = true;
+
+//WebOffice.ActiveDocument.Application.Selection.ShapeRange.Height = 100;
+//WebOffice.ActiveDocument.Application.Selection.ShapeRange.Width = 200;
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.WrapFormat.AllowOverlap = true;
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.WrapFormat.Side = 3;
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.WrapFormat.Type = 3;
+
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.RelativeHorizontalPosition =0;
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.RelativeVerticalPosition =0;
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.Left = -999995;
+            WebOffice.ActiveDocument.Application.Selection.ShapeRange.Top = -999995;
+            WebOffice.ActiveDocument.ActiveWindow.ActivePane.View.SeekView = 0;
+
+        }
+
+    </script>
+</head>
+<body topmargin=0 leftmargin=0 onload="javascript:WebOpen();">
+<script language="javascript">
+    if (!!window.ActiveXObject || "ActiveXObject" in window){
+        document.write('<object classid="clsid:FF09E4FA-BFAA-486E-ACB4-86EB0AE875D5" codebase="WebOffice.ocx#Version=2019,1,7,3" id="WebOffice" width="900" height="500" >');
+        document.write('</object>');}
+    else
+    {
+        document.write('<object id="WebOffice" CLSID="{FF09E4FA-BFAA-486E-ACB4-86EB0AE875D5}" TYPE="application/x-itst-activex"  width=100% height=900></object>');
+    }
+</script>
+<div style="text-align:left;font-size:15px;">
+    <input type="button"  class="button" value="Jsp后台保存" style="width:80px" onclick="WebJspSave();"/>&nbsp;&nbsp;
+    <input type="button"  class="button" value="加入网络图片水印" onclick="WebPicMark();"/>
+    <a href="javascript:SmartOpen();">智能窗口链接</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcitc.szgt.contract.perform.mapper.CrContractpayalertMapper">
+    <select id="queryPayAlertMsg" resultType="com.pcitc.szgt.contract.perform.model.PayAlertMsgVo">
+        select a.*, b.ContractID, b.RuleSerialNum, b.ContractName, b.ContractObjectMoney
+        from cr_contractpayalert a, cr_contractbasic b
+        where a.f_contract_id = b.ContractID
+        and a.f_logicdel = 0
+        and a.f_state = 0
+        and a.f_create_user = #{createuser}
+        and a.f_actual_date &lt;= #{nowdate}
+        and b.LogicDel = 0
+        and b.Section = '30'
+        order by a.f_actual_date asc
+    </select>
+
+    <select id="queryPayAlertMsgCnt" resultType="java.lang.Long">
+        select count(*)
+        from cr_contractpayalert a, cr_contractbasic b
+        where a.f_contract_id = b.ContractID
+        and a.f_logicdel = 0
+        and a.f_state = 0
+        and a.f_create_user = #{createuser}
+        and a.f_actual_date &lt;= #{nowdate}
+        and b.LogicDel = 0
+        and b.Section = '30'
+    </select>
+</mapper>

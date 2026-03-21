@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pcitc.szgt.contract.finality.mapper.CrContractcaseMapper">
+
+	<select id="queryTotalAndAmount" resultType="com.pcitc.szgt.contract.finality.model.ContractCaseModel">
+		select count(cc.CaseID) as caseTotal,sum(cc.TotalAmount) as caseAmount 
+		from cr_contractbasic ccb right join cr_contractcase cc on ccb.ContractID=cc.ContractID
+		where ccb.MainOrgID = #{orgId} and <![CDATA[ TotalAmount >0 and cc.LogicDel = 0 and ccb.PropertyModel >= 30]]> 
+		<if test="startTime !=null and startTime !=''">
+			and cc.CreatedDate between #{startTime} and #{endTime}		
+		</if>
+	</select>
+	<!-- 履行中合同总数量：统计区间范围内，合同阶段 >= 合同履行 -->
+	<select id="queryFulfilContractCount" resultType="Integer">
+		select count(cc.ContractID) as fulfilTotal 
+		from cr_contractbasic cc
+		where cc.MainOrgID = #{orgId} and <![CDATA[ cc.PropertyModel >=30 and cc.LogicDel = 0 ]]> 
+		<if test="startTime != null and startTime !=''">
+			and cc.CreatedDate between #{startTime} and #{endTime}		
+		</if>
+	</select>
+	
+	<!-- 倒签合同数量：统计区间范围内，合同履行开始时间 < 合同签订时间 && 合同阶段 >= 合同履行 -->
+	<select id="queryBackdateCount" resultType="Integer">
+		select count(cc.ContractID) as backdateTotal 
+		from cr_contractbasic cc left join cr_contractinfo cci on cc.ContractID=cci.ContractID 
+		where cc.MainOrgID = #{orgId} and <![CDATA[ cc.PropertyModel >=30 and cc.LogicDel = 0 
+		and date_format(cci.PerFormStartDate,'%Y-%c-%d') < date_format(cci.MySignDate,'%Y-%c-%d')]]> 
+		<if test="startTime != null and startTime !=''">
+			and cc.CreatedDate  between #{startTime} and #{endTime}		
+		</if>		
+	</select>
+	
+	<!-- 正常签订合同数量: -->
+	<select id="queryNormallyCount" resultType="Integer">
+		select count(a.ContractID) as normallyTotal
+		from (
+			select cc.ContractID from cr_contractbasic cc where  cc.MainOrgID = #{orgId}  and cc.LogicDel =0
+			<if test="startTime != null and startTime !=''">
+				and cc.CreatedDate between #{startTime} and #{endTime}		
+			</if>
+		) as a
+		where NOT EXISTS(select 1 from cr_contractcase ccc where a.ContractID=ccc.ContractID and ccc.LogicDel=0) 
+
+	</select>	
+	
+</mapper>
