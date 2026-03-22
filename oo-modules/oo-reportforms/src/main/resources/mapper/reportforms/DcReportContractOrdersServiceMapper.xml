@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportContractOrdersServiceMapper">
+    
+    <resultMap type="com.oo.reportforms.domain.DcReportContractOrdersService" id="DcReportContractOrdersServiceResult">
+        <result property="id" column="id"/>
+        <result property="contractCode" column="contract_code"/>
+        <result property="contractEntity" column="contract_entity"/>
+        <result property="contractName" column="contract_name"/>
+        <result property="ordersNum" column="orders_num"/>
+        <result property="serviceName" column="service_name"/>
+        <result property="contractMoney" column="contract_money"/>
+        <result property="paymentTotal" column="payment_total"/>
+        <result property="currency" column="currency"/>
+        <result property="paymentProgress" column="payment_progress"/>
+        <result property="paymentNode" column="payment_node"/>
+        <result property="contractTerm" column="contract_term"/>
+        <result property="contractBreach" column="contract_breach"/>
+        <result property="contractIllegal" column="contract_illegal"/>
+        <result property="year" column="year"/>
+        <result property="remark" column="remark"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="delUser" column="del_user"/>
+        <result property="delTime" column="del_time"/>
+    </resultMap>
+
+    <sql id="selectDcReportContractOrdersServiceVo">
+        select id, contract_code, contract_entity, contract_name, orders_num, service_name, contract_money, payment_total, currency, payment_progress, payment_node, contract_term, contract_breach, contract_illegal, `year`, remark, create_by, create_time, update_by, update_time, del_flag, del_user, del_time from dc_report_contract_orders_service
+    </sql>
+
+    <select id="selectList" parameterType="com.oo.reportforms.domain.DcReportContractOrdersService" resultMap="DcReportContractOrdersServiceResult">
+        <include refid="selectDcReportContractOrdersServiceVo"/>
+        <where>
+            del_flag = '0'
+            <if test="contractCode != null  and contractCode != ''"> and contract_code like concat('%', #{contractCode}, '%')</if>
+            <if test="year != null  and year != ''"> and `year` like concat('%', #{year}, '%')</if>
+        </where>
+        ORDER BY create_time desc
+    </select>
+
+    <select id="selectDcReportContractOrdersServiceList" parameterType="com.oo.reportforms.domain.DcReportContractOrdersService" resultMap="DcReportContractOrdersServiceResult">
+        <include refid="selectDcReportContractOrdersServiceVo"/>
+        <where>
+            del_flag = '0'
+            <if test="contractCode != null  and contractCode != ''"> and contract_code = #{contractCode}</if>
+            <if test="contractEntity != null  and contractEntity != ''"> and contract_entity = #{contractEntity}</if>
+            <if test="contractName != null  and contractName != ''"> and contract_name like concat('%', #{contractName}, '%')</if>
+            <if test="ordersNum != null  and ordersNum != ''"> and orders_num = #{ordersNum}</if>
+            <if test="serviceName != null  and serviceName != ''"> and service_name like concat('%', #{serviceName}, '%')</if>
+            <if test="contractMoney != null "> and contract_money = #{contractMoney}</if>
+            <if test="paymentTotal != null "> and payment_total = #{paymentTotal}</if>
+            <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+            <if test="paymentProgress != null "> and payment_progress = #{paymentProgress}</if>
+            <if test="paymentNode != null  and paymentNode != ''"> and payment_node = #{paymentNode}</if>
+            <if test="contractTerm != null  and contractTerm != ''"> and contract_term = #{contractTerm}</if>
+            <if test="contractBreach != null  and contractBreach != ''"> and contract_breach = #{contractBreach}</if>
+            <if test="contractIllegal != null  and contractIllegal != ''"> and contract_illegal = #{contractIllegal}</if>
+            <if test="year != null  and year != ''"> and `year` = #{year}</if>
+        </where>
+    </select>
+    <delete id="deleteItemsByIds">
+        delete from dc_report_contract_orders_service where id in
+        <foreach item="ids" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+</mapper>

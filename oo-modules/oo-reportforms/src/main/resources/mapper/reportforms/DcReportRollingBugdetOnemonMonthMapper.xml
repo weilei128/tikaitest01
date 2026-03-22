@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportRollingBugdetOnemonMonthMapper">
+    
+    <resultMap type="com.oo.reportforms.domain.DcReportRollingBugdetOnemonMonth" id="DcReportRollingBugdetOnemonMonthResult">
+        <result property="rollingBugdetId" column="rolling_bugdet_id"/>
+        <result property="month" column="month"/>
+        <result property="value" column="value"/>
+    </resultMap>
+
+    <sql id="selectDcReportRollingBugdetOnemonMonthVo">
+        select rolling_bugdet_id, month, value from dc_report_rolling_bugdet_onemon_month
+    </sql>
+
+    <select id="selectDcReportRollingBugdetOnemonMonthList" parameterType="com.oo.reportforms.domain.DcReportRollingBugdetOnemonMonth" resultMap="DcReportRollingBugdetOnemonMonthResult">
+        <include refid="selectDcReportRollingBugdetOnemonMonthVo"/>
+        <where>  
+            <if test="value != null "> and value = #{value}</if>
+        </where>
+    </select>
+    
+</mapper>

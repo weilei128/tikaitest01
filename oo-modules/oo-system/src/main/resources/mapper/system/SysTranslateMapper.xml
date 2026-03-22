@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.system.mapper.SysTranslateMapper">
+
+    <resultMap type="com.oo.system.api.domain.SysTranslate" id="SysTranslateResult">
+        <result property="fieldId" column="field_id"/>
+        <result property="lang" column="lang"/>
+        <result property="category" column="category"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
+    <sql id="selectSysTranslateVo">
+        select field_id, lang, category, content from sys_translate
+    </sql>
+
+    <select id="selectSysTranslateList" parameterType="com.oo.system.api.domain.SysTranslate" resultMap="SysTranslateResult">
+        <include refid="selectSysTranslateVo"/>
+        <where>
+            <if test="category != null  and category != ''"> and category = #{category}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+        </where>
+    </select>
+
+
+    <delete id="removeByIds" parameterType="Long">
+        delete from sys_translate where field_id in
+        <foreach collection="array" item="jobLogId" open="(" separator="," close=")">
+            #{jobLogId}
+        </foreach>
+    </delete>
+</mapper>

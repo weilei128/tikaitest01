@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportInteractTraceMapper">
+    
+    <resultMap type="com.oo.reportforms.domain.DcReportInteractTrace" id="DcReportInteractTraceResult">
+        <result property="id" column="id"/>
+        <result property="belongDeptPlan" column="belong_dept_plan"/>
+        <result property="trainName" column="train_name"/>
+        <result property="trainPeopleNum" column="train_people_num"/>
+        <result property="trainTarget" column="train_target"/>
+        <result property="trainContent" column="train_content"/>
+        <result property="trainSubject" column="train_subject"/>
+        <result property="organizer" column="organizer"/>
+        <result property="trainDayNum" column="train_day_num"/>
+        <result property="trainCity" column="train_city"/>
+        <result property="trainDateDrafted" column="train_date_drafted"/>
+        <result property="trainLecturer" column="train_lecturer"/>
+        <result property="courseName" column="course_name"/>
+        <result property="trainDateReal" column="train_date_real"/>
+        <result property="classHour" column="class_hour"/>
+        <result property="participantsNum" column="participants_num"/>
+        <result property="participantsNumReal" column="participants_num_real"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="delUser" column="del_user"/>
+        <result property="delTime" column="del_time"/>
+        <!--<association property="dept"    column="dept_id" javaType="com.oo.system.api.domain.SysDept" resultMap="deptResult" />-->
+    </resultMap>
+
+    <resultMap type="com.oo.reportforms.domain.DcReportInteractTraceView" id="DcReportInteractTraceViewResult">
+        <result property="id" column="id"/>
+        <result property="belongDeptPlan" column="belong_dept_plan"/>
+        <result property="trainName" column="train_name"/>
+        <result property="trainPeopleNum" column="train_people_num"/>
+        <result property="trainTarget" column="train_target"/>
+        <result property="trainContent" column="train_content"/>
+        <result property="trainSubject" column="train_subject"/>
+        <result property="organizer" column="organizer"/>
+        <result property="trainDayNum" column="train_day_num"/>
+        <result property="trainCity" column="train_city"/>
+        <result property="trainDateDrafted" column="train_date_drafted"/>
+        <result property="trainLecturer" column="train_lecturer"/>
+        <result property="courseName" column="course_name"/>
+        <result property="trainDateReal" column="train_date_real"/>
+        <result property="classHour" column="class_hour"/>
+        <result property="participantsNum" column="participants_num"/>
+        <result property="participantsNumReal" column="participants_num_real"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="delUser" column="del_user"/>
+        <result property="delTime" column="del_time"/>
+        <result property="deptName" column="dept_name"/>
+        <!--<association property="dept"    column="dept_id" javaType="com.oo.system.api.domain.SysDept" resultMap="deptResult" />-->
+    </resultMap>
+
+    <resultMap type="com.oo.system.api.domain.SysDept" id="SysDeptResult">
+        <result property="deptId" column="dept_Id"/>
+        <result property="deptName" column="dept_name"/>
+    </resultMap>
+
+    <sql id="selectDcReportInteractTraceVo">
+        select id, belong_dept_plan, train_name, train_people_num, train_target, train_content, train_subject, organizer, train_day_num, train_city, train_date_drafted, train_lecturer, course_name, train_date_real, class_hour, participants_num, participants_num_real, create_by, create_time, update_by, update_time, remark, del_flag, del_user, del_time from dc_report_interact_trace
+    </sql>
+
+    <select id="selectDcReportInteractTraceList" parameterType="com.oo.reportforms.domain.DcReportInteractTraceView" resultMap="DcReportInteractTraceViewResult">
+        select a.id, a.belong_dept_plan, a.train_name, a.train_people_num, a.train_target, a.train_content, a.train_subject, a.organizer, a.train_day_num,
+        a.train_city, a.train_date_drafted, a.train_lecturer, a.course_name, a.train_date_real, a.class_hour, a.participants_num,
+        a.participants_num_real, a.create_by, a.create_time, a.update_by, a.update_time,ur.dept_name
+        from `gjgs-dc`.dc_report_interact_trace a left join `gjgs-dc-cloud`.sys_dept ur on a.belong_dept_plan=ur.dept_id
+        <where>
+            a.del_flag = '0'
+            <if test="belongDeptPlan != null "> and a.belong_dept_plan = #{belongDeptPlan}</if>
+            <if test="trainName != null  and trainName != ''"> and a.train_name like concat('%', #{trainName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="getInfo" resultMap="DcReportInteractTraceViewResult">
+        select a.id, a.belong_dept_plan, a.train_name, a.train_people_num, a.train_target, a.train_content, a.train_subject, a.organizer, a.train_day_num,
+        a.train_city, a.train_date_drafted, a.train_lecturer, a.course_name, a.train_date_real, a.class_hour, a.participants_num,
+        a.participants_num_real, a.create_by, a.create_time, a.update_by, a.update_time,ur.dept_name
+        from `gjgs-dc`.dc_report_interact_trace a left join `gjgs-dc-cloud`.sys_dept ur on a.belong_dept_plan=ur.dept_id
+        <where>
+            a.del_flag = '0'
+            <if test="trainName != null  and trainName != ''">
+                AND a.train_name like concat('%', #{trainName}, '%')
+            </if>
+            <if test="beginTime != null">
+                AND date_format(a.train_date_real,'%y%m%d')  &gt;= date_format(#{beginTime},'%y%m%d')
+            </if>
+            <if test="endTime != null">
+                AND date_format(a.train_date_real,'%y%m%d') &lt;=  date_format(#{endTime},'%y%m%d')
+            </if>
+        </where>
+    </select>
+
+    <select id="getDeptId" parameterType="com.oo.system.api.domain.SysDept" resultMap="SysDeptResult">
+        select dept_id,dept_Name from `gjgs-dc-cloud`.sys_dept where dept_Name = #{deptName}
+    </select>
+
+    <delete id="deleteItemsByIds">
+        delete from dc_report_interact_trace where id in
+        <foreach item="ids" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+</mapper>

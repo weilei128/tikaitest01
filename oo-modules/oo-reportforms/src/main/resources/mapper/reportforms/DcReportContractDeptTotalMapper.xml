@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportContractDeptTotalMapper">
+
+    <resultMap type="com.oo.reportforms.domain.DcReportContractDeptTotal" id="DcReportContractDeptTotalResult">
+        <result property="id" column="id"/>
+        <result property="contractCode" column="contract_code"/>
+        <result property="contractContent" column="contract_content"/>
+        <result property="contractEntity" column="contract_entity"/>
+        <result property="serviceName" column="service_name"/>
+        <result property="signedDate" column="signed_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="contractTotalMoney" column="contract_total_money"/>
+        <result property="moneyUnit" column="money_unit"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="remark" column="remark"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="delUser" column="del_user"/>
+        <result property="delTime" column="del_time"/>
+    </resultMap>
+
+    <sql id="selectDcReportContractDeptTotalVo">
+        select id, contract_code, contract_content, contract_entity, service_name, signed_date, end_date, contract_total_money, money_unit, payment_type, remark, create_by, create_time, update_by, update_time, del_flag, del_user, del_time from dc_report_contract_dept_total
+    </sql>
+
+    <select id="selectList" parameterType="com.oo.reportforms.domain.DcReportContractDeptTotal" resultMap="DcReportContractDeptTotalResult">
+        <include refid="selectDcReportContractDeptTotalVo"/>
+        /*where del_flag = '0'*/
+        <where>
+            del_flag = '0'
+            <if test="contractCode != null  and contractCode != ''"> and contract_code like concat('%', #{contractCode}, '%')</if>
+            <if test="beginTime != null">
+                AND date_format(signed_date,'%y%m%d')  &gt;= date_format(#{beginTime},'%y%m%d')
+            </if>
+            <if test="endTime != null">
+                AND date_format(end_date,'%y%m%d') &lt;=  date_format(#{endTime},'%y%m%d')
+            </if>
+        </where>
+        ORDER BY create_time desc
+    </select>
+
+    <select id="selectDcReportContractDeptTotalList" parameterType="com.oo.reportforms.domain.DcReportContractDeptTotal" resultMap="DcReportContractDeptTotalResult">
+        <include refid="selectDcReportContractDeptTotalVo"/>
+        <where>
+            del_flag = '0'
+            <if test="contractCode != null  and contractCode != ''"> and contract_code = #{contractCode}</if>
+            <if test="contractContent != null  and contractContent != ''"> and contract_content = #{contractContent}</if>
+            <if test="contractEntity != null  and contractEntity != ''"> and contract_entity = #{contractEntity}</if>
+            <if test="serviceName != null  and serviceName != ''"> and service_name like concat('%', #{serviceName}, '%')</if>
+            <if test="signedDate != null "> and signed_date = #{signedDate}</if>
+            <if test="endDate != null "> and end_date = #{endDate}</if>
+            <if test="contractTotalMoney != null "> and contract_total_money = #{contractTotalMoney}</if>
+            <if test="moneyUnit != null  and moneyUnit != ''"> and money_unit = #{moneyUnit}</if>
+            <if test="paymentType != null  and paymentType != ''"> and payment_type = #{paymentType}</if>
+        </where>
+    </select>
+
+    <update id="DeleteContractDeptTotalByIds" parameterType="String">
+        update dc_report_contract_dept_total
+        set del_flag='2',del_time=NOW()
+        where id in
+        <foreach collection="array" item="ids" open="(" separator="," close=")">
+            #{Id}
+        </foreach>
+    </update>
+
+    <delete id="deleteItemsByIds">
+        delete from dc_report_contract_dept_total where id in
+        <foreach item="ids" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+</mapper>

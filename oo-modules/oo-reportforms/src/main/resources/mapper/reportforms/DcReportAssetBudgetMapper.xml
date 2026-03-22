@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportAssetBudgetMapper">
+    <resultMap id="deptResult" type="com.oo.reportforms.domain.DcReportAssetBudgetMonth">
+        <result property="assetId"    column="asset_id"     />
+        <result property="month"  column="month"   />
+        <result property="value"  column="value"   />
+    </resultMap>
+    <select id="selectDcReportOutputWellBugdetYear"  resultMap="deptResult">
+        SELECT asset_id,month,value FROM
+    dc_report_asset_budget_month
+where asset_id=#{asset_id}
+    </select>
+
+    <update id="updateDelete" parameterType="String">
+        update dc_report_asset_budget
+        set del_flag='2',del_time=NOW()
+        where id in
+        <foreach collection="array" item="Id" open="(" separator="," close=")">
+            #{Id}
+        </foreach>
+    </update>
+
+</mapper>

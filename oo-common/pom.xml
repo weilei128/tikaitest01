@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.oo</groupId>
+        <artifactId>oo</artifactId>
+        <version>3.5.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <modules>
+        <module>oo-common-log</module>
+        <module>oo-common-core</module>
+        <module>oo-common-redis</module>
+        <module>oo-common-swagger</module>
+        <module>oo-common-security</module>
+        <module>oo-common-datascope</module>
+		<module>oo-common-datasource</module>
+    </modules>
+
+    <artifactId>oo-common</artifactId>
+    <packaging>pom</packaging>
+
+    <description>
+        oo-common通用模块
+    </description>
+
+</project>

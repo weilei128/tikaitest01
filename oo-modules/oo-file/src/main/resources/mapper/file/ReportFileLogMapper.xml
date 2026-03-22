@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.file.mapper.ReportFileLogMapper">
+    
+    <resultMap type="com.oo.system.api.domain.ReportFileLog" id="ReportFileLogResult">
+        <result property="id" column="id"/>
+        <result property="fileId" column="file_id"/>
+        <result property="content" column="content"/>
+        <result property="operType" column="oper_type"/>
+        <result property="fileName" column="file_name"/>
+        <result property="fileVersion" column="file_version"/>
+        <result property="wellName" column="well_name"/>
+        <result property="organizationName" column="organization_name"/>
+        <result property="operName" column="oper_name"/>
+        <result property="operTime" column="oper_time"/>
+        <result property="operIp" column="oper_ip"/>
+        <result property="status" column="status"/>
+        <result property="errorMsg" column="error_msg"/>
+        <result property="batchId" column="batch_id"/>
+    </resultMap>
+
+    <sql id="selectReportFileLogVo">
+        select id, file_id, content, oper_type, file_name, file_version, well_name, organization_name, oper_name, oper_time, oper_ip, status, error_msg, batch_id from dc_report_file_log
+    </sql>
+
+    <select id="selectReportFileLogList" parameterType="com.oo.system.api.domain.ReportFileLog" resultMap="ReportFileLogResult">
+        <include refid="selectReportFileLogVo"/>
+        <where>  
+            <if test="fileId != null  and fileId != ''"> and file_id = #{fileId}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="operType != null  and operType != ''"> and oper_type = #{operType}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="fileVersion != null  and fileVersion != ''"> and file_version = #{fileVersion}</if>
+            <if test="wellName != null  and wellName != ''"> and well_name like concat('%', #{wellName}, '%')</if>
+            <if test="organizationName != null  and organizationName != ''"> and organization_name like concat('%', #{organizationName}, '%')</if>
+            <if test="operName != null  and operName != ''"> and oper_name like concat('%', #{operName}, '%')</if>
+            <if test="operIp != null  and operIp != ''"> and oper_ip = #{operIp}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="errorMsg != null  and errorMsg != ''"> and error_msg = #{errorMsg}</if>
+            <if test="startDate != null "> and oper_time &gt;= #{startDate}</if>
+            <if test="endDate != null "> and oper_time &lt;= #{endDate}</if>
+        </where>
+        order by oper_time desc
+    </select>
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.system.mapper.SysBussnessWdpMapper">
+    
+    <resultMap type="com.oo.system.domain.SysBussnessWdp" id="SysBussnessWdpResult">
+        <result property="id" column="id"/>
+        <result property="bussnessId" column="bussness_id"/>
+        <result property="wdpId" column="wdp_id"/>
+    </resultMap>
+
+    <sql id="selectSysBussnessWdpVo">
+        select id, bussness_id, wdp_id from sys_bussness_wdp
+    </sql>
+
+    <select id="selectSysBussnessWdpList" parameterType="SysBussnessWdp" resultMap="SysBussnessWdpResult">
+        <include refid="selectSysBussnessWdpVo"/>
+        <where>  
+            <if test="bussnessId != null "> and bussness_id = #{bussnessId}</if>
+            <if test="wdpId != null "> and wdp_id = #{wdpId}</if>
+        </where>
+    </select>
+
+   <!-- <insert id="insertSysBussnessWdp" parameterType="SysBussnessWdp" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_bussness_wdp(
+        <trim suffixOverrides=",">
+            <if test="id != null and id != 0">id,</if>
+            <if test="wdpId != null and wdpId != ''">wdp_id,</if>
+            <if test="bussnessId != null and bussnessId != 0">bussness_id,</if>
+            <if test="isCheck != null">is_check,</if>
+        </trim>
+        )values(
+        <trim suffixOverrides=",">
+            <if test="id != null and id != ''">#{id},</if>
+            <if test="wdpId != null and wdpId != ''">#{wdpId},</if>
+            <if test="bussnessId != null and bussnessId != 0">#{bussnessId},</if>
+            <if test="isCheck != null">#{isCheck},</if>
+        </trim>
+        )
+    </insert>-->
+    <insert id="insertSysBussnessWdp">
+        insert into sys_bussness_wdp(id, wdp_id,bussness_id) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            (#{item.id},#{item.wdpId},#{item.bussnessId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteSysBussnessWdpById" parameterType="Long">
+        delete from sys_bussness_wdp where wdp_id = #{wdpId}
+    </delete>
+</mapper>

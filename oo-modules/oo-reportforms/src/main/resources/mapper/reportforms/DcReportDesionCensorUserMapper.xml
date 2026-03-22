@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportDesionCensorUserMapper">
+
+    <resultMap type="com.oo.reportforms.domain.DcReportDesionCensorUser" id="DcReportDesionCensorUserResult">
+        <result property="censorId" column="censor_id"/>
+        <result property="expertId" column="expert_id"/>
+    </resultMap>
+
+    <resultMap type="com.oo.reportforms.domain.vo.ScreenExaminationVo" id="ScreenExaminationResult">
+        <result property="name" column="name"/>
+        <result property="year" column="year"/>
+        <result property="count" column="count"/>
+    </resultMap>
+
+    <resultMap type="com.oo.reportforms.domain.vo.ScreenExaminationVo" id="ScreenExaminationResult1">
+        <result property="name" column="name"/>
+        <result property="count" column="keywords"/>
+    </resultMap>
+
+    <sql id="selectDcReportDesionCensorUserVo">
+        select censor_id, name from dc_report_desion_censor_user
+    </sql>
+
+    <select id="selectDcReportDesionCensorUserList" parameterType="com.oo.reportforms.domain.DcReportDesionCensorUser" resultMap="DcReportDesionCensorUserResult">
+        <include refid="selectDcReportDesionCensorUserVo"/>
+    <!--    <where>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+        </where>-->
+    </select>
+
+    <select id="screenExamination"  resultMap="ScreenExaminationResult">
+        select name,count(name) as count
+        from dc_report_desion_censor_view
+        where name is not null
+        <if test="beginTime != null">
+            and date_format(censon_begin_date,'%y%m%d')  &gt;= date_format(#{beginTime},'%y%m%d')
+        </if>
+        <if test="endTime != null">
+            and date_format(censon_end_date,'%y%m%d')  &lt;= date_format(#{endTime},'%y%m%d')
+        </if>
+        group by name,keywords
+        <if test="keywords != null  and keywords != ''">
+        having keywords= #{keywords}
+        </if>
+    </select>
+    <select id="screenExamination1"  resultMap="ScreenExaminationResult">
+        select name,count(name) as count
+        from dc_report_desion_censor_view
+        where name is not null
+        <if test="beginTime != null ">
+            and date_format(censon_begin_date,'%y%m%d')  &gt;= date_format(#{beginTime},'%y%m%d')
+        </if>
+        <if test="endTime != null ">
+            and date_format(censon_end_date,'%y%m%d')  &lt;= date_format(#{endTime},'%y%m%d')
+        </if>
+        group by name,keywords
+        having keywords not in ('深水', '深水岩下', '陆地盐膏层','油砂','大位移','高温高压')
+    </select>
+
+    <select id="screenExamination2"  resultMap="ScreenExaminationResult">
+        select name,count(name) as count
+        from dc_report_desion_censor_view
+        where name is not null
+        <if test="beginTime != null">
+            and date_format(censon_begin_date,'%y%m%d')  &gt;= date_format(#{beginTime},'%y%m%d')
+        </if>
+        <if test="endTime != null ">
+            and date_format(censon_end_date,'%y%m%d')  &lt;= date_format(#{endTime},'%y%m%d')
+        </if>
+        group by name
+    </select>
+
+    <select id="summaryExamination"  resultMap="ScreenExaminationResult">
+        select YEAR(CENSON_END_DATE) as year ,count(*) as count
+        from dc_report_desion_censor
+        where 1=1
+        <if test="beginTime != null">
+            and date_format(censon_begin_date,'%y%m%d')  &gt;= date_format(#{beginTime},'%y%m%d')
+        </if>
+        <if test="endTime != null">
+            and date_format(censon_end_date,'%y%m%d')  &lt;= date_format(#{endTime},'%y%m%d')
+        </if>
+        group by YEAR(CENSON_END_DATE)
+    </select>
+
+    <select id="screenExamination3"  resultMap="ScreenExaminationResult1">
+        select name,keywords
+        from dc_report_desion_censor_view where name is not null
+        group by name  ,keywords
+    </select>
+</mapper>

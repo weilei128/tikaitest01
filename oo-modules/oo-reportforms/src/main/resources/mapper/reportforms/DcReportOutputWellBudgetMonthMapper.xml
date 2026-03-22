@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportOutputWellBudgetMonthMapper">
+
+    <delete id="deletebyIds" parameterType="String">
+        delete from dc_report_output_well_budget_month where output_well_id in
+        <foreach collection="array" item="Id" open="(" separator="," close=")">
+            #{Id}
+        </foreach>
+    </delete>
+
+
+    <insert id="insertDcReportOutputWellBudgetMonth"  >
+        insert into dc_report_output_well_budget_month (
+        output_well_id,
+        month,
+        value
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.outputWellId,jdbcType=VARCHAR},
+            #{item.month,jdbcType=VARCHAR},
+            #{item.value,jdbcType=DECIMAL}
+            )
+        </foreach>
+    </insert>
+    <update id="updateDcReportOutputWellBudgetMonth"  >
+        update  dc_report_output_well_budget_month (
+        output_well_id,
+        month,
+        value
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.outputWellId,jdbcType=VARCHAR},
+            #{item.month,jdbcType=VARCHAR},
+            #{item.value,jdbcType=DECIMAL}
+            )
+        </foreach>
+    </update>
+</mapper>

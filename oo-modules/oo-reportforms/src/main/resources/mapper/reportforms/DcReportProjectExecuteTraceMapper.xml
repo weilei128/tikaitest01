@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportProjectExecuteTraceMapper">
+    <resultMap type="com.oo.reportforms.domain.vo.DcReportProjectExecuteTraceYearVo" id="Result">
+        <result property="year" column="year"/>
+        <result property="value" column="value"/>
+    </resultMap>
+
+    <select id="selectDcReportProjectExecuteTraceYear"  resultMap="Result">
+        select year,value from dc_report_project_execute_trace_year
+        <where>
+            <if test="organizationId != null  and organizationId != ''"> and organization_id = #{organizationId}</if>
+        </where>
+    </select>
+
+
+    <delete id="delectDcReportProjectExecuteTraceYear" parameterType="java.lang.String">
+        DELETE FROM dc_report_project_execute_trace_year
+        WHERE organization_id in
+        <foreach item="Id" index="index" collection="array"  open="(" separator="," close=")">
+            #{Id}
+        </foreach>
+    </delete>
+
+
+    <update id="updateDelete" parameterType="String">
+        update dc_report_project_execute_trace
+        set del_flag='2',del_time=NOW()
+        where organization_id in
+        <foreach collection="array" item="Id" open="(" separator="," close=")">
+            #{Id}
+        </foreach>
+    </update>
+</mapper>

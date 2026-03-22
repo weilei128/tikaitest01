@@ -2,7 +2,30 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/szgt-contract.iml" filepath="$PROJECT_DIR$/szgt-contract.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo.iml" filepath="$PROJECT_DIR$/oo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-api/oo-api.iml" filepath="$PROJECT_DIR$/oo-api/oo-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-api/oo-api-datamanagement/oo-api-datamanagement.iml" filepath="$PROJECT_DIR$/oo-api/oo-api-datamanagement/oo-api-datamanagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-api/oo-api-system/oo-api-system.iml" filepath="$PROJECT_DIR$/oo-api/oo-api-system/oo-api-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-common/oo-common.iml" filepath="$PROJECT_DIR$/oo-common/oo-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-common/oo-common-core/oo-common-core.iml" filepath="$PROJECT_DIR$/oo-common/oo-common-core/oo-common-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-common/oo-common-datascope/oo-common-datascope.iml" filepath="$PROJECT_DIR$/oo-common/oo-common-datascope/oo-common-datascope.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-common/oo-common-datasource/oo-common-datasource.iml" filepath="$PROJECT_DIR$/oo-common/oo-common-datasource/oo-common-datasource.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-common/oo-common-log/oo-common-log.iml" filepath="$PROJECT_DIR$/oo-common/oo-common-log/oo-common-log.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-common/oo-common-redis/oo-common-redis.iml" filepath="$PROJECT_DIR$/oo-common/oo-common-redis/oo-common-redis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-common/oo-common-security/oo-common-security.iml" filepath="$PROJECT_DIR$/oo-common/oo-common-security/oo-common-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-common/oo-common-swagger/oo-common-swagger.iml" filepath="$PROJECT_DIR$/oo-common/oo-common-swagger/oo-common-swagger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-modules/oo-datamanagement/oo-datamanagement.iml" filepath="$PROJECT_DIR$/oo-modules/oo-datamanagement/oo-datamanagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-gateway/oo-gateway.iml" filepath="$PROJECT_DIR$/oo-gateway/oo-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-auth/oo-gjgs-dc-auth.iml" filepath="$PROJECT_DIR$/oo-auth/oo-gjgs-dc-auth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-modules/oo-file/oo-gjgs-dc-file.iml" filepath="$PROJECT_DIR$/oo-modules/oo-file/oo-gjgs-dc-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-modules/oo-job/oo-gjgs-dc-job.iml" filepath="$PROJECT_DIR$/oo-modules/oo-job/oo-gjgs-dc-job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-modules/oo-report/oo-gjgs-dc-report.iml" filepath="$PROJECT_DIR$/oo-modules/oo-report/oo-gjgs-dc-report.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-modules/oo-system/oo-gjgs-dc-system.iml" filepath="$PROJECT_DIR$/oo-modules/oo-system/oo-gjgs-dc-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-modules/oo-modules.iml" filepath="$PROJECT_DIR$/oo-modules/oo-modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-modules/oo-gen/oo-modules-gen.iml" filepath="$PROJECT_DIR$/oo-modules/oo-gen/oo-modules-gen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-modules/oo-reportforms/oo-reportforms.iml" filepath="$PROJECT_DIR$/oo-modules/oo-reportforms/oo-reportforms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-visual/oo-visual.iml" filepath="$PROJECT_DIR$/oo-visual/oo-visual.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oo-visual/oo-monitor/oo-visual-monitor.iml" filepath="$PROJECT_DIR$/oo-visual/oo-monitor/oo-visual-monitor.iml" />
     </modules>
   </component>
 </project>

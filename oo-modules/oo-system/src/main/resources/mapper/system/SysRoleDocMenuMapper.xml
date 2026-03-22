@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.system.mapper.SysRoleDocMenuMapper">
+    
+    <resultMap type="SysRoleDocMenu" id="SysRoleDocMenuResult">
+        <result property="roleId" column="role_id"/>
+        <result property="businessId" column="business_id"/>
+    </resultMap>
+
+    <sql id="selectSysRoleDocMenuVo">
+        select role_id, business_id from sys_role_doc_menu
+    </sql>
+
+    <select id="selectSysRoleDocMenuList" parameterType="SysRoleDocMenu" resultMap="SysRoleDocMenuResult">
+        <include refid="selectSysRoleDocMenuVo"/>
+        <where>  
+        </where>
+    </select>
+    
+</mapper>

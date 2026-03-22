@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportContractOrdersWorkMapper">
+    
+    <resultMap type="com.oo.reportforms.domain.DcReportContractOrdersWork" id="DcReportContractOrdersWorkResult">
+        <result property="id" column="id"/>
+        <result property="contractContent" column="contract_content"/>
+        <result property="contractName" column="contract_name"/>
+        <result property="ordersNum" column="orders_num"/>
+        <result property="ordersMoney" column="orders_money"/>
+        <result property="tollMoney" column="toll_money"/>
+        <result property="remark" column="remark"/>
+        <result property="year" column="year"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delFlag" column="del_flag"/>
+        <result property="delUser" column="del_user"/>
+        <result property="delTime" column=""/>
+    </resultMap>
+
+    <sql id="selectDcReportContractOrdersWorkVo">
+        select id, contract_content, contract_name, orders_num, orders_money, toll_money, remark, `year`, create_by, create_time, update_by, update_time, del_flag, del_user, del_time from dc_report_contract_orders_work
+    </sql>
+
+    <select id="selectList" parameterType="com.oo.reportforms.domain.DcReportContractOrdersWork" resultMap="DcReportContractOrdersWorkResult">
+        <include refid="selectDcReportContractOrdersWorkVo"/>
+        <where>
+            del_flag = '0'
+            <if test="ordersNum != null  and ordersNum != ''"> and orders_num like concat('%', #{ordersNum}, '%')</if>
+            <if test="year != null  and year != ''"> and `year` like concat('%', #{year}, '%')</if>
+        </where>
+        ORDER BY create_time desc
+    </select>
+
+    <select id="selectDcReportContractOrdersWorkList" parameterType="com.oo.reportforms.domain.DcReportContractOrdersWork" resultMap="DcReportContractOrdersWorkResult">
+        <include refid="selectDcReportContractOrdersWorkVo"/>
+        <where>
+            del_flag = '0'
+            <if test="contractContent != null  and contractContent != ''"> and contract_content = #{contractContent}</if>
+            <if test="contractName != null  and contractName != ''"> and contract_name like concat('%', #{contractName}, '%')</if>
+            <if test="ordersNum != null  and ordersNum != ''"> and orders_num = #{ordersNum}</if>
+            <if test="ordersMoney != null "> and orders_money = #{ordersMoney}</if>
+            <if test="tollMoney != null "> and toll_money = #{tollMoney}</if>
+            <if test="year != null  and year != ''"> and `year` = #{year}</if>
+        </where>
+    </select>
+    <delete id="deleteItemsByIds">
+        delete from dc_report_contract_orders_work where id in
+        <foreach item="ids" collection="array" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
+</mapper>

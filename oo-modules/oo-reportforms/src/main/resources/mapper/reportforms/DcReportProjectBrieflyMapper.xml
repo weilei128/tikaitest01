@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.oo.reportforms.mapper.DcReportProjectBrieflyMapper">
+    <resultMap id="deptResult" type="com.oo.reportforms.domain.vo.DcMdOrganizationVo">
+        <id     property="id"    column="id"     />
+        <result property="name"  column="name"   />
+    </resultMap>
+    <select id="selectDistinctYear"  resultType="String">
+        select distinct YEAR(CENSON_END_DATE) as 'year'
+        from dc_report_project_briefly
+
+    </select>
+
+    <select id="groupByYear"  resultMap="deptResult">
+        select DISTINCT b.name as 'name',a.organization_id as id
+        from dc_report_project_briefly a  left join dc_md_organization b
+        on a.organization_id=b.id  and
+        YEAR(a.CENSON_END_DATE)= #{year}
+    </select>
+
+    <update id="updateDelete" parameterType="String">
+        update dc_report_project_briefly
+        set del_flag='2',del_time=NOW()
+        where id in
+        <foreach collection="array" item="Id" open="(" separator="," close=")">
+            #{Id}
+        </foreach>
+    </update>
+
+</mapper>

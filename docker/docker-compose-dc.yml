@@ -1,0 +1,160 @@
+version : '3.8'
+services:
+  nacos:
+    container_name: nacos
+    image: nacos/nacos-server
+    build:
+      context: ./nacos
+    environment:
+      - MODE=standalone
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./nacos/logs/:/home/nacos/logs
+      - ./nacos/conf/application.properties:/home/nacos/conf/application.properties
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+  redis:
+    container_name: redis
+    image: redis
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/conf/redis.conf:/home/oo/redis/redis.conf
+      - ./redis/data:/data
+    command: redis-server /home/oo/redis/redis.conf
+  nginx:
+    container_name: nginx
+    image: nginx
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/html/dist:/home/oo/projects/oo-ui
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - oo-gateway
+    links:
+      - oo-gateway
+  nginx_web:
+    container_name: nginx_web
+    image: nginx
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./nginx_web
+    ports:
+      - "82:80"
+    volumes:
+      - ./nginx_web/html/dist:/home/oo/projects/oo-web
+      - ./nginx_web/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx_web/logs:/var/log/nginx
+      - ./nginx_web/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - oo-gateway
+    links:
+      - oo-gateway
+  oo-gateway:
+    container_name: oo-gateway
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/gateway
+      dockerfile: dockerfile
+    ports:
+      - "5758:5758"
+    depends_on:
+      - redis
+    links:
+      - redis
+  oo-gjgs-dc-auth:
+    container_name: oo-gjgs-dc-auth
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/auth
+      dockerfile: dockerfile
+    ports:
+      - "9500:9500"
+    networks:
+      - docker_default
+  oo-gjgs-dc-system:
+    container_name: oo-gjgs-dc-system
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/modules/system
+      dockerfile: dockerfile
+    ports:
+      - "9501:9501"
+    networks:
+      - docker_default
+  oo-modules-gen:
+    container_name: oo-modules-gen
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/modules/gen
+      dockerfile: dockerfile
+    ports:
+      - "9202:9202"
+  oo-gjgs-dc-job:
+    container_name: oo-gjgs-dc-job
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/modules/job
+      dockerfile: dockerfile
+    ports:
+      - "9503:9503"
+  oo-modules-file:
+    container_name: oo-modules-file
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/modules/file
+      dockerfile: dockerfile
+    ports:
+      - "9500:9500"
+    volumes:
+      - ./oo/uploadPath:/home/oo/uploadPath
+  oo-visual-monitor:
+    container_name: oo-visual-monitor
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/visual/monitor
+      dockerfile: dockerfile
+    ports:
+      - "9100:9100"
+  oo-gjgs-dc-datamanagement:
+    container_name: oo-gjgs-dc-datamanagement
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/modules/datamanagement
+      dockerfile: dockerfile
+    ports:
+      - "9505:9505"
+  oo-gjgs-dc-report:
+    container_name: oo-gjgs-dc-report
+    environment:
+      - TZ=Asia/Shanghai
+    build:
+      context: ./oo/modules/report
+      dockerfile: dockerfile
+    ports:
+      - "9504:9504"
+networks:
+  docker_default:
+    external: true
