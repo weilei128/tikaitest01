@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.oo.datamanagement.api.factory.RemoteDataManageFallbackFactory

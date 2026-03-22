@@ -2,57 +2,20 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="oo-common-redis" />
-        <module name="oo-modules-gen" />
-        <module name="oo-common-swagger" />
-        <module name="oo-gjgs-dc-report" />
-        <module name="oo-datamanagement" />
-        <module name="oo-common-security" />
-        <module name="oo-common-datasource" />
-        <module name="oo-api-system" />
-        <module name="oo-common-core" />
-        <module name="oo-reportforms" />
-        <module name="oo-gjgs-dc-system" />
-        <module name="oo-gjgs-dc-auth" />
-        <module name="oo-gateway" />
-        <module name="oo-gjgs-dc-job" />
-        <module name="oo-gjgs-dc-file" />
-        <module name="oo-common-log" />
-        <module name="oo-api-datamanagement" />
-        <module name="oo-visual-monitor" />
-        <module name="oo-common-datascope" />
+        <module name="qrcode-generator" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="oo" target="1.8" />
-      <module name="oo-api" target="1.8" />
-      <module name="oo-api-datamanagement" target="1.8" />
-      <module name="oo-api-system" target="1.8" />
-      <module name="oo-common" target="1.8" />
-      <module name="oo-common-core" target="1.8" />
-      <module name="oo-common-datascope" target="1.8" />
-      <module name="oo-common-datasource" target="1.8" />
-      <module name="oo-common-log" target="1.8" />
-      <module name="oo-common-redis" target="1.8" />
-      <module name="oo-common-security" target="1.8" />
-      <module name="oo-common-swagger" target="1.8" />
-      <module name="oo-datamanagement" target="1.8" />
-      <module name="oo-gateway" target="1.8" />
-      <module name="oo-gjgs-dc-auth" target="1.8" />
-      <module name="oo-gjgs-dc-file" target="1.8" />
-      <module name="oo-gjgs-dc-job" target="1.8" />
-      <module name="oo-gjgs-dc-report" target="1.8" />
-      <module name="oo-gjgs-dc-system" target="1.8" />
-      <module name="oo-modules" target="1.8" />
-      <module name="oo-modules-gen" target="1.8" />
-      <module name="oo-reportforms" target="1.8" />
-      <module name="oo-visual" target="1.8" />
-      <module name="oo-visual-monitor" target="1.8" />
+      <module name="qrcode-generator" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="qrcode-generator" options="-parameters" />
+    </option>
   </component>
 </project>

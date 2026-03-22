@@ -1,8 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.oo.system.api.factory.RemoteUserFallbackFactory,\
-  com.oo.system.api.factory.RemoteLogFallbackFactory, \
-  com.oo.system.api.factory.RemoteMenuFallbackFactory, \
-  com.oo.system.api.factory.RemoteDictDataServiceFallbackFactory, \
-  com.oo.system.api.factory.RemoteFileFallbackFactory,\
-  com.oo.system.api.factory.RemoteTranslateServiceFallbackFactory,\
-  com.oo.system.api.factory.RemoteDictFallbackFactory
