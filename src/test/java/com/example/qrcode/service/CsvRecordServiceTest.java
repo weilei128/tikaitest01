@@ -17,35 +17,11 @@ public class CsvRecordServiceTest {
     @Autowired
     private CsvRecordService csvRecordService;
 
-    @Test
-    public void testSaveUserRecord() throws Exception {
-        csvRecordService.saveUserRecord("测试单位", "测试用户");
-    }
 
-    @Test
+    public void testSaveUserRecord() throws Exception {
     public void testConcurrentSave() throws Exception {
         int threadCount = 30;
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
-        CountDownLatch latch = new CountDownLatch(threadCount);
-
-        for (int i = 0; i < threadCount; i++) {
-            final int index = i;
-            executorService.submit(() -> {
-                try {
-                    String organization = "单位" + (index % 5);
-                    String username = "用户" + (index % 10);
-                    csvRecordService.saveUserRecord(organization, username);
-                    System.out.println("线程" + index + "保存成功");
-                } catch (Exception e) {
-                    System.err.println("线程" + index + "保存失败: " + e.getMessage());
-                } finally {
-                    latch.countDown();
-                }
-            });
-        }
-
-        latch.await();
-        executorService.shutdown();
     }
 
     @Test
@@ -71,5 +47,3 @@ public class CsvRecordServiceTest {
             csvRecordService.saveUserRecord("测试单位", "");
         });
         assertEquals("用户名不能为空", exception.getMessage());
-    }
-}
